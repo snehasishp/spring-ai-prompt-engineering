@@ -26,8 +26,7 @@ public class MakingTheModelThinkTests extends BaseTestClass {
 
     String prompt = """
             Perform the following actions:
-            1 - Summarize the following text delimited by triple
-            backticks with 1 sentence.
+            1 - Summarize and print the following text delimited by triple backticks with 1 sentence.
             2 - Translate the summary into Polish.
             3 - List each name in the Polish summary.
             4 - Output a json object that contains the following
@@ -39,10 +38,8 @@ public class MakingTheModelThinkTests extends BaseTestClass {
 
     @Test
     void testSteps() {
-        PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-        System.out.println(chatModel.call(promptTemplate.create(Map.of("text", story))).getResult().getOutput().getText());
-
+        System.out.println(chat(prompt,
+            Map.of("text", story)));
     }
 
     String prompt2Incorrect = """
@@ -70,9 +67,7 @@ public class MakingTheModelThinkTests extends BaseTestClass {
 
     @Test
     void testIncorrectPrompt() {
-        PromptTemplate promptTemplate = new PromptTemplate(prompt2Incorrect);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+        System.out.println(chat(prompt2Incorrect));
     }
 
     String prompt3Correct = """
@@ -115,8 +110,8 @@ public class MakingTheModelThinkTests extends BaseTestClass {
             Costs:
             1. Land cost: 100x
             2. Solar panel cost: 250x
-            3. Maintenance cost: 100,000 + 100x
-            Total cost: 100x + 250x + 100,000 + 100x = 450x + 100,000
+            3. Maintenance cost: 100,000 + 10x
+            Total cost: 100x + 250x + 100,000 + 10x = 360x + 100,000
             ```
             
             Actual solution:
@@ -126,9 +121,7 @@ public class MakingTheModelThinkTests extends BaseTestClass {
 
     @Test
     void testCorrectPrompt() {
-        PromptTemplate promptTemplate = new PromptTemplate(prompt3Correct);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+        System.out.println(chat(prompt3Correct));
     }
 
     String prompt4 = """
@@ -144,9 +137,7 @@ public class MakingTheModelThinkTests extends BaseTestClass {
 
     @Test
     void testTheBallPrompt() {
-        PromptTemplate promptTemplate = new PromptTemplate(prompt4);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+        System.out.println(chat(prompt4));
     }
 
 }

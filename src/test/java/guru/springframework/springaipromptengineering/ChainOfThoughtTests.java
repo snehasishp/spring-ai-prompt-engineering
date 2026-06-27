@@ -23,12 +23,8 @@ public class ChainOfThoughtTests extends BaseTestClass {
                 How many tennis balls does Roger have now?
                 """.stripIndent();
 
-        PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-        ChatResponse response = chatModel.call(promptTemplate.create());
-
         //models previously would answer 27
-        System.out.println(response.getResult().getOutput().getText());
+        System.out.println(chat(prompt));
     }
 
     @Test
@@ -43,11 +39,7 @@ public class ChainOfThoughtTests extends BaseTestClass {
                 apples does the cafeteria have now?
                 """.stripIndent();
 
-        PromptTemplate promptTemplate = new PromptTemplate(chainOfThoughtPrompt);
-
-        ChatResponse response = chatModel.call(promptTemplate.create());
-
-        System.out.println(response.getResult().getOutput().getText());
+        System.out.println(chat(chainOfThoughtPrompt));
     }
 
     @Test
@@ -57,11 +49,7 @@ public class ChainOfThoughtTests extends BaseTestClass {
                 she found the glass cracked. Explain step by step why the glass cracked.
                 """.stripIndent();
 
-        PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-        ChatResponse response = chatModel.call(promptTemplate.create());
-
         //models previously would answer 27
-        System.out.println(response.getResult().getOutput().getText());
+        System.out.println(chat(prompt));
     }
 }

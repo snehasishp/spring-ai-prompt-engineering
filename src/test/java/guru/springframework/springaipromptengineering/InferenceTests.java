@@ -58,14 +58,12 @@ public class InferenceTests extends BaseTestClass {
     @DisplayName("Testing Sentiment")
     @Test
     void testingSentiment() {
-        PromptTemplate promptTemplate = new PromptTemplate(sentimentPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create(Map.of("review1", review1,
+        System.out.println(chat(sentimentPrompt, Map.of("review1", review1,
                 "review2", review2,
                 "review3", review3,
                 "review4", review4,
                 "review5", review5,
-                "review6", review6))).getResult().getOutput().getText());
+                "review6", review6)));
     }
 
     String emotionPrompt = """
@@ -82,14 +80,12 @@ public class InferenceTests extends BaseTestClass {
     @DisplayName("Testing Emotion")
     @Test
     void testingEmotion() {
-        PromptTemplate promptTemplate = new PromptTemplate(emotionPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create(Map.of("review1", review1,
+        System.out.println(chat(emotionPrompt, Map.of("review1", review1,
                 "review2", review2,
                 "review3", review3,
                 "review4", review4,
                 "review5", review5,
-                "review6", review6))).getResult().getOutput().getText());
+                "review6", review6)));
     }
 
     String angerTestPrompt = """
@@ -112,14 +108,12 @@ public class InferenceTests extends BaseTestClass {
     @DisplayName("Testing for Anger")
     @Test
     void testingForAnger() {
-        PromptTemplate promptTemplate = new PromptTemplate(angerTestPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create(Map.of("review1", review1,
+        System.out.println(chat(angerTestPrompt, Map.of("review1", review1,
                 "review2", review2,
                 "review3", review3,
                 "review4", review4,
                 "review5", review5,
-                "review6", review6))).getResult().getOutput().getText());
+                "review6", review6)));
     }
 
     String story = """
@@ -164,8 +158,6 @@ public class InferenceTests extends BaseTestClass {
     @DisplayName("Inferring for Topics")
     @Test
     void inferTopics() {
-        PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-        System.out.println(chatModel.call(promptTemplate.create(Map.of("story", story))).getResult().getOutput().getText());
+        System.out.println(chat(prompt, Map.of("story", story)));
     }
 }
