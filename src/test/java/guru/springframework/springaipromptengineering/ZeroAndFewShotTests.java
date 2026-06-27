@@ -1,12 +1,9 @@
 package guru.springframework.springaipromptengineering;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.ai.model.openai.autoconfigure.OpenAiChatProperties;
 import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Map;
@@ -47,13 +44,9 @@ public class ZeroAndFewShotTests extends BaseTestClass {
     void zeroShotPromptTest() {
         // java for loop 3 times
         for (int i = 0; i < 3; i++) {
-            // java UUID randomUUID is an API cache buster
-            PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-            ChatResponse response = chatModel.call(promptTemplate.create(Map.of("review", UUID.randomUUID() + "\n" + review)));
-
             System.out.println("#################################\n");
-            System.out.println(response.getResult().getOutput().getText());
+            // java UUID randomUUID is an API cache buster
+            System.out.println(chat(prompt, Map.of("review", UUID.randomUUID() + "\n" + review)));
         }
     }
 
@@ -70,15 +63,9 @@ public class ZeroAndFewShotTests extends BaseTestClass {
 
         // java for loop 3 times
         for (int i = 0; i < 3; i++) {
-            // java UUID randomUUID is an API cache buster
-            PromptTemplate promptTemplate = new PromptTemplate(prompt);
-
-            Prompt prompt = new Prompt(promptTemplate.createMessage(Map.of("review" , UUID.randomUUID() + "\n" + review)), openAiChatOptions);
-
-            ChatResponse response = chatModel.call(prompt);
-
             System.out.println("#################################\n");
-            System.out.println(response.getResult().getOutput().getText());
+            // java UUID randomUUID is an API cache buster
+            System.out.println(chat(prompt, Map.of("review" , UUID.randomUUID() + "\n" + review), openAiChatOptions));
         }
     }
 
@@ -87,7 +74,7 @@ public class ZeroAndFewShotTests extends BaseTestClass {
      *
      * Example from 'Language Models are Few-Shot Learners' paper: https://arxiv.org/abs/2005.14165
      */
-    String whatpuPrompt = """
+    String whatPuPrompt = """
             A "whatpu" is a small, furry animal native to Tanzania. An example of a sentence that uses
             the word whatpu is:
            \s
@@ -98,10 +85,8 @@ public class ZeroAndFewShotTests extends BaseTestClass {
       \s""";
 
     @Test
-    void testwhatPuPromptFewShotTest() {
-        PromptTemplate promptTemplate = new PromptTemplate(whatpuPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+    void testWhatPuPromptFewShotTest() {
+        System.out.println(chat(whatPuPrompt));
     }
 
     String vacationPrompt = """
@@ -112,9 +97,7 @@ public class ZeroAndFewShotTests extends BaseTestClass {
 
     @Test
     void testVacationFewShotTest() {
-        PromptTemplate promptTemplate = new PromptTemplate(vacationPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+        System.out.println(chat(vacationPrompt));
     }
 
     String mathPrompt = """
@@ -127,16 +110,12 @@ public class ZeroAndFewShotTests extends BaseTestClass {
 
     @Test
     void testMathPromptFewShotTest() {
-        PromptTemplate promptTemplate = new PromptTemplate(mathPrompt);
-
-        System.out.println(chatModel.call(promptTemplate.create()).getResult().getOutput().getText());
+        System.out.println(chat(mathPrompt));
     }
 
     @Test
     void AiHallucinationTest() {
-        Prompt prompt = new Prompt("Write sales copy for the new 'professional grade' " +
-                "Denali Advanced Toothbrush by GMC.");
-
-        System.out.println(chatModel.call(prompt).getResult().getOutput().getText());
+        System.out.println(chat("Write sales copy for the new 'professional grade' " +
+                "Denali Advanced Toothbrush by GMC."));
     }
 }

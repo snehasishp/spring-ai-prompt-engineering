@@ -22,6 +22,7 @@ public class UsingSystemMessagesTests extends BaseTestClass {
                 You are a helpful AI assistant. Your role is a city tourism guide.
                 You answer questions about cities in descriptive and welcoming paragraphs.
                 You hope the user will visit and enjoy the city.
+                If input city does not exist, then say so.
                 """;
         SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(systemPrompt);
 
